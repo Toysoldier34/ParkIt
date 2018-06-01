@@ -27,7 +27,7 @@ function setParkingLocationSuccess(position) {
 
     //display an alert that shows the latitude and longitude
     navigator.notification.alert("Parking location saved. (Lat: " + latitude + ", Long: " + longitude) + ")";
-    showParkingLocation();
+    showParkingLocations();
 }
 
 function setParkingLocationError(error) {
@@ -65,11 +65,11 @@ function setParkingLocation() {
 }
 
 function getParkingLocation() {
-    navigator.geolocation.getCurrentPosition(getParkingLocationSucess,
+    navigator.geolocation.getCurrentPosition(getParkingLocationSuccess,
         getParkingLocationError, { enableHighAccuracy:true });
 }
 
-function getParkingLcoationSuccess(position) {
+function getParkingLocationSuccess(position) {
     currentLatitude = position.coords.latitude;
     currentLongitude = position.coords.longitude;
     parkedLatitude = storage.getItem("parkedLatitude");
@@ -83,21 +83,28 @@ function getParkingLocationError(error) {
     + "\nError Message: " + error.message);
 }
 
-function showDirection(){
-    var dRenderer = new google.maps.DirectionRenderer;
+function showDirections(){
+    alert("Show the Directions");
+    var dRenderer = new google.maps.DirectionsRenderer;
     var dService = new google.maps.DirectionsService;
     var curLatLong = new google.maps.LatLng(currentLatitude, currentLongitude);
-    var parkedLatLong = new google.maps.latLng(parkedLatitude, parkedLongitude);
+    var parkedLatLong = new google.maps.LatLng(parkedLatitude, parkedLongitude);
     var map = new google.maps.Map(document.getElementById("map"));
     map.setZoom(16);
     map.setCenter(curLatLong);
     dRenderer.setMap(map);
+    alert("Route");
+
     dService.route({
         origin: curLatLong,
         destination: parkedLatLong,
-        travelMode: 'DRIVING'
+        travelMode: "DRIVING"
     }, function(response, status){
-        if (status == 'OK'){
+        alert("Function");
+
+        if (status == "OK"){
+            alert("OK");
+
             dRenderer.setDirections(response);
             $('#directions').html('');
             dRenderer.setPanel(document.getElementById('directions'));
@@ -105,6 +112,8 @@ function showDirection(){
             navigator.notification.alert("Directions failed: " + status);
         }
     });
+    alert("End");
+
     $('#map').show();
     $('#directions').show();
     $('#instructions').hide();
@@ -118,6 +127,7 @@ $("#park").click(function () {
 
 $("#retrieve").click(function() {
     alert("Get parking location");
+    getParkingLocation();
 });
 
 $("#gotIt").click(function () {

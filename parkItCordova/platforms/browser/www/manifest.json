@@ -3,7 +3,7 @@
   "display": "standalone",
   "name": "ParkIt",
   "short_name": "ParkIt",
-  "version": " com.greenriverdev.athompson.355.ParkIt",
+  "version": "com.greenriverdev.athompson.ParkIt.parkItCordova",
   "description": "A cordova app to save GPS coordinates for a parked car.",
   "author": "IT 355",
   "icons": [],
