@@ -84,7 +84,6 @@ function getParkingLocationError(error) {
 }
 
 function showDirections(){
-    alert("Show the Directions");
     var dRenderer = new google.maps.DirectionsRenderer;
     var dService = new google.maps.DirectionsService;
     var curLatLong = new google.maps.LatLng(currentLatitude, currentLongitude);
@@ -93,18 +92,12 @@ function showDirections(){
     map.setZoom(16);
     map.setCenter(curLatLong);
     dRenderer.setMap(map);
-    alert("Route");
-
     dService.route({
         origin: curLatLong,
         destination: parkedLatLong,
         travelMode: "DRIVING"
     }, function(response, status){
-        alert("Function");
-
         if (status == "OK"){
-            alert("OK");
-
             dRenderer.setDirections(response);
             $('#directions').html('');
             dRenderer.setPanel(document.getElementById('directions'));
@@ -112,8 +105,6 @@ function showDirections(){
             navigator.notification.alert("Directions failed: " + status);
         }
     });
-    alert("End");
-
     $('#map').show();
     $('#directions').show();
     $('#instructions').hide();
@@ -126,7 +117,6 @@ $("#park").click(function () {
 });
 
 $("#retrieve").click(function() {
-    alert("Get parking location");
     getParkingLocation();
 });
 
